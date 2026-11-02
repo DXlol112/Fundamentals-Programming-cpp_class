@@ -8,7 +8,7 @@
 
 | Занятие | Конспект | Домашняя работа |
 | :---: | :---: | :---: |
-| 1 | — | [Домашняя работа](lesson_01/hw/report.md) |
+| 1 | [Структура программы и переменные](lesson_01/class/lesson_01.md) | [Домашняя работа](lesson_01/hw/report.md) |
 
 ## Структура репозитория
 
@@ -17,18 +17,17 @@
 ├── .github/
 │   └── .gitkeep
 ├── assets/
+│   ├── lesson_01/
+│   │   └── .gitkeep
 │   └── .gitkeep
 ├── lesson_01/
 │   ├── class/
 │   │   └── .gitkeep
-│   └── hw/
-│       ├── main.cpp
-│       └── report.md
+│   ├── hw/
+│   │   ├── main.cpp
+│   │   └── report.md
+│   └── lesson_01.md
 ├── .gitignore
 ├── LICENSE
 └── README.md
 ```
-
-## Лицензия
-
-Проект распространяется под лицензией [MIT](LICENSE).
