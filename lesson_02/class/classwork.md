@@ -200,3 +200,278 @@ Saved issued: 0
 В начале каждого запуска счётчик выдачи и его сохранённая копия равны нулю, подтверждение равно `false`. После присваиваний выдано нужное количество билетов, подтверждение равно `true`, сохранённая копия равна нулю. Во втором запуске введите событие Game Development Meetup и проверьте вывод всех трёх слов в кавычках.
 
 В отчёте поясните, откуда счётчик получает новое значение, когда создаётся его копия и почему сбор добавляется один раз. Укажите различие начальной инициализации признака подтверждения и его последующего присваивания.
+
+## Решение
+
+### Задание 1. Паспорт студента
+
+```cpp
+void task1() {
+    std::string name;
+    std::string group;
+    int age = 16;
+    double experience_years = 1.5;
+    bool is_ready = false;
+    const int lessons_count = 2;
+    int completed_tasks{};
+
+    std::cout << "Name: ";
+    std::getline(std::cin, name);
+
+    std::cout << "Group: ";
+    std::getline(std::cin, group);
+
+    int saved_completed = completed_tasks;
+
+    std::cout << "\nSTUDENT PROFILE\n"
+            << "Name: " << name << "\n"
+            << "Group: " << group << "\n"
+            << "Course: C++\n"
+            << "Age: " << age << "\n"
+            << "Experience: " << experience_years << "\n"
+            << "Ready: " << std::boolalpha << is_ready << "\n"
+            << "Lessons: " << lessons_count << "\n";
+
+    std::cout << "Completed before: " << completed_tasks << "\n";
+
+    completed_tasks = 3;
+
+    std::cout << "Completed after: " << completed_tasks << "\n"
+            << "Saved completed: " << saved_completed << "\n";
+}
+```
+
+Вывод, запуск 1 (с введёнными строками):
+
+```text
+Name: Alex
+Group: 9/2-RPO-25/1
+
+STUDENT PROFILE
+Name: Alex
+Group: 9/2-RPO-25/1
+Course: C++
+Age: 16
+Experience: 1.5
+Ready: false
+Lessons: 2
+Completed before: 0
+Completed after: 3
+Saved completed: 0
+```
+
+Вывод, запуск 2 (с введёнными строками):
+
+```text
+Name: Eva Brown
+Group: 9/2-RPO-25/1
+
+STUDENT PROFILE
+Name: Eva Brown
+Group: 9/2-RPO-25/1
+Course: C++
+Age: 17
+Experience: 2.5
+Ready: true
+Lessons: 2
+Completed before: 0
+Completed after: 5
+Saved completed: 0
+```
+
+Возраст хранится в `int`, потому что задан целым числом. Для дробного опыта нужен `double`. Готовность хранится в `bool`: студент либо готов, либо нет. Константа `lessons_count` задаёт фиксированное количество пройденных пар.
+
+Перед вторым запуском ожидались значения счётчика 0 → 5, а копии — 0. Так и получилось: копия получила 0 до присваивания и дальше не менялась.
+
+### Задание 2. Заказ в учебном кафе
+
+```cpp
+void task2() {
+    std::string customer_name;
+    std::string dish_name;
+    const double portion_price = 145.5;
+    int portion_count = 3;
+    const double service_fee = 20.0;
+    bool is_paid = false;
+
+    std::cout << "Customer: ";
+    std::getline(std::cin, customer_name);
+
+    std::cout << "Dish: ";
+    std::getline(std::cin, dish_name);
+
+    double subtotal = portion_price * portion_count;
+    double total = subtotal + service_fee;
+
+
+    std::cout << "\nCAFE ORDER\n"
+                << "Customer: " << customer_name << "\n"
+                << "Dish: " << dish_name << "\n"
+                << "Portion price: " << portion_price << " RUB\n"
+                << "Portions: " << portion_count << "\n"
+                << "Subtotal: " << subtotal << " RUB\n"
+                << "Service fee: " << service_fee << " RUB\n"
+                << "Total: " << total << " RUB\n";
+
+    std::cout << "Paid: " << std::boolalpha << is_paid << "\n";
+}
+```
+
+Вывод, запуск 1 (с введёнными строками):
+
+```text
+Customer: Alex
+Dish: Pasta Carbonara
+
+CAFE ORDER
+Customer: Alex
+Dish: Pasta Carbonara
+Portion price: 145.5 RUB
+Portions: 3
+Subtotal: 436.5 RUB
+Service fee: 20 RUB
+Total: 456.5 RUB
+Paid: false
+```
+
+Вывод, запуск 2 (с введёнными строками):
+
+```text
+Customer: Eva Brown
+Dish: Rice with chicken
+
+CAFE ORDER
+Customer: Eva Brown
+Dish: Rice with chicken
+Portion price: 125 RUB
+Portions: 2
+Subtotal: 250 RUB
+Service fee: 15 RUB
+Total: 265 RUB
+Paid: true
+```
+
+Вывод, запуск 3 (с введёнными строками):
+
+```text
+Customer: Vova
+Dish: Vegetable Soup
+
+CAFE ORDER
+Customer: Vova
+Dish: Vegetable Soup
+Portion price: 80.5 RUB
+Portions: 4
+Subtotal: 322 RUB
+Service fee: 10 RUB
+Total: 332 RUB
+Paid: false
+```
+
+Цена и итог хранятся в `double`, потому что могут содержать дробную часть. Количество порций целое, поэтому используется `int`. Перед запусками итог рассчитан вручную: 436.5 + 20 = 456.5 RUB; 250 + 15 = 265 RUB; 322 + 10 = 332 RUB. Вывод совпал с расчётами.
+
+### Задание 3. Билет участника
+
+```cpp
+void task3() {
+    std::string name;
+    std::string event;
+    const int ticket_price = 200;
+    const int ticket_count = 3;
+    const int ticket_fee = 25;
+    int issued{};
+    bool confirmed = false;
+
+    std::cout << "Participant: ";
+    std::getline(std::cin, name);
+    std::cout << "Event: ";
+    std::getline(std::cin, event);
+
+    // The fee is charged once per order.
+    int ticket_total = ticket_price * ticket_count + ticket_fee;
+    int saved_issued = issued;
+
+    std::cout << "\nIT MEETUP TICKET\n"
+              << "Organizer: IT Academy\n"
+              << "Participant: " << name << "\n"
+              << "Event: " << '"' << event << '"' << "\n"
+              << "Ticket price: " << ticket_price << " RUB\n"
+              << "Tickets: " << ticket_count << "\n"
+              << "Service fee: " << ticket_fee << " RUB\n"
+              << "Total: " << ticket_total << " RUB\n"
+              << "Issued before: " << issued << "\n"
+              << "Confirmed before: " << std::boolalpha << confirmed << "\n";
+
+    issued = ticket_count;
+    confirmed = true;
+
+    std::cout << "Issued after: " << issued << "\n"
+              << "Confirmed after: " << confirmed << "\n"
+              << "Saved issued: " << saved_issued << "\n";
+}
+```
+
+Вывод, запуск 1 (с введёнными строками):
+
+```text
+Participant: Alex
+Event: Code Meetup
+
+IT MEETUP TICKET
+Organizer: IT Academy
+Participant: Alex
+Event: "Code Meetup"
+Ticket price: 200 RUB
+Tickets: 3
+Service fee: 25 RUB
+Total: 625 RUB
+Issued before: 0
+Confirmed before: false
+Issued after: 3
+Confirmed after: true
+Saved issued: 0
+```
+
+Вывод, запуск 2 (с введёнными строками):
+
+```text
+Participant: Eva Brown
+Event: Game Development Meetup
+
+IT MEETUP TICKET
+Organizer: IT Academy
+Participant: Eva Brown
+Event: "Game Development Meetup"
+Ticket price: 350 RUB
+Tickets: 2
+Service fee: 50 RUB
+Total: 750 RUB
+Issued before: 0
+Confirmed before: false
+Issued after: 2
+Confirmed after: true
+Saved issued: 0
+```
+
+Вывод, запуск 3 (с введёнными строками):
+
+```text
+Participant: Vova
+Event: C++ Meetup
+
+IT MEETUP TICKET
+Organizer: IT Academy
+Participant: Vova
+Event: "C++ Meetup"
+Ticket price: 350 RUB
+Tickets: 3
+Service fee: 50 RUB
+Total: 1100 RUB
+Issued before: 0
+Confirmed before: false
+Issued after: 3
+Confirmed after: true
+Saved issued: 0
+```
+
+Счётчик получает количество билетов из заказа. Его копия создаётся до выдачи и сохраняет 0. Сбор прибавляется один раз, потому что он относится ко всему заказу. При инициализации `confirmed` получает начальное значение `false`, а после выдачи присваивание меняет его на `true`. Ручные расчёты совпали с выводом: 200 × 3 + 25 = 625 RUB; 350 × 2 + 50 = 750 RUB; 350 × 3 + 50 = 1100 RUB.

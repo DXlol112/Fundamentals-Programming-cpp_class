@@ -6,9 +6,11 @@
 
 ## Оглавление
 
-| Занятие | Конспект | Домашняя работа |
-| :---: | :---: | :---: |
-| 1 | [Структура программы и переменные](lesson_01/class/lesson_01.md) | [Домашняя работа](lesson_01/hw/report.md) |
+| Занятие | Конспект | Практическая работа | Домашняя работа |
+| :---: | :---: | :---: | :---: |
+| 1 | [Структура программы и переменные](lesson_01/class/lesson_01.md) | — | [Домашняя работа](lesson_01/hw/report.md) |
+| 2 | — | [Консольный ввод и вывод, переменные и вычисления](lesson_02/class/classwork.md) | — |
+| 3 | — | [Условия и циклы](lesson_03/class/report.md) | — |
 
 ## Структура репозитория
 
@@ -22,11 +24,19 @@
 │   └── .gitkeep
 ├── lesson_01/
 │   ├── class/
-│   │   └── .gitkeep
-│   ├── hw/
-│   │   ├── main.cpp
-│   │   └── report.md
-│   └── lesson_01.md
+│   │   └── lesson_01.md
+│   └── hw/
+│       ├── main.cpp
+│       └── report.md
+├── lesson_02/
+│   ├── class/
+│   │   ├── classwork.md
+│   │   └── main.cpp
+│   └── hw/
+│       └── .gitkeep
+├── lesson_03/
+│   └── class/
+│       └── report.md
 ├── .gitignore
 ├── LICENSE
 └── README.md
